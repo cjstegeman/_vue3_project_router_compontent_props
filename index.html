@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <title>Vue 3 via CDN met Router en Props</title>
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <script src="https://unpkg.com/vue-router@4/dist/vue-router.global.js"></script>
-  <script src="pags/pagC.js"></script>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 1em;
-    }
-    nav a {
-      margin-right: 1em;
-      text-decoration: none;
-      color: #0077cc;
-    }
-    nav a.router-link-exact-active {
-      font-weight: bold;
-      color: black;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Vue 3 via CDN met Router en Props</title>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue-router@4/dist/vue-router.global.js"></script>
+
+    <script src="pags/pagC.js"></script>
+    <script src="pags/pagB.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 1em;
+        }
+        nav a {
+            margin-right: 1em;
+            text-decoration: none;
+            color: #0077cc;
+        }
+        nav a.router-link-exact-active {
+            font-weight: bold;
+            color: black;
+        }
+    </style>
 </head>
 <body>
   <div id="app">
@@ -44,28 +48,8 @@
                 <p>{{ tekst }}</p>
             </div>`
     };
-
-
-    const PaginaB = {
-      props: ['tekst'],
-      template: `
-        <div>
-          <h2>Pagina B</h2>
-          <p>{{ tekst }}</p>
-        </div>
-      `
-    };
-
-    // Pagina C component die ook een prop ontvangt is in een externe file gedefinieerd
-    // const PaginaC = {
-    //   props: ['tekst'],
-    //   template: `
-    //     <div>
-    //       <h2>Pagina C</h2>
-    //       <p>{{ tekst }}</p>
-    //     </div>
-    //   `
-    // };
+    // De componenten van Pagina B en C component worden in externe files gedefinieerd
+    // ze hebben precies dezelfe opbouw als pagina A
 
     // Hieronder wordt in de data van de hoofcomponent (App) de tekst gedefinieerd
     // die doorgegeven wordt aan de pagina componenten via props
