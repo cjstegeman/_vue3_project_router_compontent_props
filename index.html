@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue 3 via CDN met Router en Props</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://unpkg.com/vue-router@4/dist/vue-router.global.js"></script>
+  <script src="pags/pagC.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 1em;
+    }
+    nav a {
+      margin-right: 1em;
+      text-decoration: none;
+      color: #0077cc;
+    }
+    nav a.router-link-exact-active {
+      font-weight: bold;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div>
+        <nav>
+          <router-link to="/a">Pagina A</router-link>
+          <router-link to="/b">Pagina B</router-link>
+          <router-link to="/c">Pagina C</router-link>
+        </nav>
+        <router-view></router-view>
+      </div>
+  </div>
+
+  <script>
+    // Pagina componenten die een prop ontvangen
+    const PaginaA = {
+        props: ['tekst'],
+        template: `
+            <div>
+                <h2>Pagina A</h2>
+                <p>{{ tekst }}</p>
+            </div>`
+    };
+
+
+    const PaginaB = {
+      props: ['tekst'],
+      template: `
+        <div>
+          <h2>Pagina B</h2>
+          <p>{{ tekst }}</p>
+        </div>
+      `
+    };
+
+    // Pagina C component die ook een prop ontvangt is in een externe file gedefinieerd
+    // const PaginaC = {
+    //   props: ['tekst'],
+    //   template: `
+    //     <div>
+    //       <h2>Pagina C</h2>
+    //       <p>{{ tekst }}</p>
+    //     </div>
+    //   `
+    // };
+
+    // Hieronder wordt in de data van de hoofcomponent (App) de tekst gedefinieerd
+    // die doorgegeven wordt aan de pagina componenten via props
+    const App = {
+      data() {
+        return {
+          tekstA: 'Welkom op pagina A. Hier begint je reis!',
+          tekstB: 'Dit is pagina B. Bekijk hier alle info.',
+          tekstC: 'En dit is pagina C. Het einde van de demo.'
+        }
+      },
+    };
+
+    // Routes met components (props komen uit router-view in App)
+    const routes = [
+        {
+            path: '/a',
+            component: PaginaA,
+            props: { tekst: 'Welkom op pagina A. have fun!' }
+        },
+        {
+            path: '/b',
+            component: PaginaB,
+            props: { tekst: 'Dit is pagina B. More fun!!!.' }
+        },
+        {
+            path: '/c',
+            component: PaginaC,
+            props: { tekst: 'En dit is pagina C. Its a party!!!!!.' }
+        },
+        { path: '/', redirect: '/a' }
+    ];
+
+    const router = VueRouter.createRouter({
+      history: VueRouter.createWebHashHistory(),
+      routes
+    });
+
+    const app = Vue.createApp(App);
+    app.use(router);
+    app.mount('#app');
+  </script>
+</body>
+</html>
+<!--
+  Dit is een eenvoudige Vue 3 applicatie die gebruik maakt van Vue Router.
+  De applicatie heeft drie pagina's (A, B en C) die elk een tekst prop ontvangen.
+  De router-link componenten zorgen voor navigatie tussen de pagina's.
+  De tekst voor elke pagina is gedefinieerd in de data van de hoofcomponent (App).
+  De router-view component toont de juiste pagina op basis van de huidige route.
+  De tekst voor elke pagina wordt doorgegeven via props aan de respectieve componenten.
+  
